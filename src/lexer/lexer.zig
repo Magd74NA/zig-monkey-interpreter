@@ -37,3 +37,11 @@ const Lexer = struct {
         }
     }
 };
+
+fn isDigit(ch: u8) bool {
+    return '0' <= ch and ch <= '9';
+}
+
+fn isLetter(ch: u8) bool {
+    return 'a' <= ch and ch <= 'z' or 'A' <= ch and ch <= 'Z' or ch == '_';
+}
