@@ -6,17 +6,7 @@ const Lexer = struct {
     readPosition: usize,
     ch: u8,
 
-    pub fn init(input: []const u8) !*Lexer {
-        var l = Lexer;
-        l.input = input;
-        l.position = 0;
-        l.readPosition = 0;
-        l.ch = 0;
-
-        l.readChar();
-        return l;
-    }
-
+    // Lexer read character
     pub fn readChar(l: *Lexer) void {
         if (l.readPosition >= l.input.len) {
             l.ch = 0;
@@ -27,6 +17,18 @@ const Lexer = struct {
         l.readPosition += 1;
     }
 
+    pub fn init(input: []const u8) !*Lexer {
+        var l = Lexer;
+        l.input = input;
+        l.position = 0; // current position in input (points to current char)
+        l.readPosition = 0; // current reading position in input (after current char)
+        l.ch = 0; // current char under examination
+
+        l.readChar();
+        return l;
+    }
+
+    //Peek ahead utility for multi symbol tokens
     pub fn peekChar(l: *const Lexer) u8 {
         if (l.readPosition >= l.input.len) {
             return 0;
